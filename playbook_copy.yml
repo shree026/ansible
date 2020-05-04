@@ -1,0 +1,8 @@
+-
+        name: Test connectivity
+        hosts: all
+        tasks:
+                - name: test
+                  copy:
+                          src: /tmp/temp.txt
+                          dest: /tmp/temp.txt 
