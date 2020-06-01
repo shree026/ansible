@@ -1,0 +1,19 @@
+---
+- hosts: web
+  vars:
+    http_port: 80
+  remote_user: root
+  tasks:
+          - name: install httpd
+            yum:
+                    name: httpd
+                    state: latest
+          - name: start service of httpd
+            service:
+                    name: httpd
+                    state: started
+          - name: copy html page
+            copy:
+                    src: /home/force/ansible/index.html
+                    dest: /var/www/html/index.html
+                                                                                                                                                                                                         
