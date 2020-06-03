@@ -1,0 +1,36 @@
+---
+- hosts: target
+  remote_user: devops
+  become: yes
+  vars:
+          x: httpd
+          y: firewalld
+          z: php
+  tasks:
+          - name: install httpd
+            yum:
+                    name: "{{ x }}"
+                    state: latest
+          - name: install firewalld
+            yum:
+                    name: "{{ y }}"
+                    state: latest
+          - name: install php
+            yum:
+                    name: "{{ z }}"
+                    state: latest
+          - name: start httpd
+            service:
+                    name: httpd
+                    state: started
+                    enabled: yes
+          - name: copy php file
+            copy:
+                   src: /home/force/ansible/php.php
+                   dest: /var/www/html/index.php
+          - name: start firewall
+            firewalld:
+                   zone: public
+                   service: https
+                   permanent: yes
+                   state: enabled    
