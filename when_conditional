@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+          - name: install nginx
+            apt:
+                    name: nginx
+                    state: present
+            when: ansible_os_family == "Debian"
+
+          - name: install nginx on redhat
+            yum:
+                    name: nginx
+                    state: present
+            when: ansible_os_family == "RedHat"
+
+          - name: enable nginx service
+            service:
+                   name: nginx
+                   state: started
+                   enabled: yes
